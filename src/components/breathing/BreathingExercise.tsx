@@ -33,7 +33,10 @@ export default function BreathingExercise(){
     </div>
     <p style={{opacity:0.8,fontSize:14,margin:'4px 0 0'}}>{mode.description}</p>
     <div style={{display:'flex',justifyContent:'center'}}>
-      <div aria-hidden style={{width:160,height:160,borderRadius:'50%',border:'6px solid #A0C4FF',transition:'transform 0.7s ease', transform: label.startswith('Inhala') ? 'scale(1.1)' : (label.startswith('Exhala') ? 'scale(0.9)' : 'scale(1.0)')}}></div>
+      <div aria-hidden style={{width:160,height:160,borderRadius:'50%',border:'6px solid #A0C4FF',transition:'transform 0.7s ease', transform: label.startsWith('Inhala')
+  ? 'scale(1.1)'
+  : (label.startsWith('Exhala') ? 'scale(0.9)' : 'scale(1.0)')
+}}></div>
     </div>
     <div style={{textAlign:'center'}}>
       <div style={{fontSize:24,fontWeight:700}}>{label}</div>
