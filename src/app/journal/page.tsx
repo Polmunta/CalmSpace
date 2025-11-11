@@ -2,18 +2,23 @@
 "use client";
 import { useEffect, useState } from "react";
 
-function generatePromptsFrom(text:string): string[] {
+function generatePromptsFrom(text: string): string[] {
   const base = [
     "¿Qué emoción principal notas ahora mismo? ¿Dónde la sientes en el cuerpo?",
     "Si este problema fuera de un amigo, ¿qué consejo compasivo le darías?",
     "Nombra 3 cosas que agradeces hoy, por pequeñas que sean."
   ];
   if (!text) return base;
+
   // heurística simple para variar según el tema
   const t = text.toLowerCase();
-  if (t.includes("estrés") || t.includes("estres")) base.unshift("¿Qué señales tempranas de estrés notas en tu día? ¿Cómo podrías responder con amabilidad?");
-  if (t.includes("miedo") or t.includes("ansiedad")) base.unshift("Respira lento 1 minuto. Luego escribe: ¿qué necesitaría ahora mismo para sentirme un poco más seguro?");  # noqa
-  return base.slice(0,3);
+  if (t.includes("estrés") || t.includes("estres")) {
+    base.unshift("¿Qué señales tempranas de estrés notas en tu día? ¿Cómo podrías responder con amabilidad?");
+  }
+  if (t.includes("miedo") || t.includes("ansiedad")) {
+    base.unshift("Respira lento 1 minuto. Luego escribe: ¿qué necesitaría ahora mismo para sentirme un poco más seguro?");
+  }
+  return base.slice(0, 3);
 }
 
 function reframePositive(text:string): string {
