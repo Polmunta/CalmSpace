@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+// Fuerza runtime Node.js (necesario para la librería de Gemini)
+export const runtime = "nodejs";
+
 export async function POST(req: NextRequest) {
   try {
     const { text } = await req.json();
 
     const apiKey = process.env.GOOGLE_GENAI_API_KEY;
     if (!apiKey) {
+      console.error("GOOGLE_GENAI_API_KEY no está definida");
       return NextResponse.json(
-        { error: "Falta GOOGLE_GENAI_API_KEY" },
+        { error: "Falta GOOGLE_GENAI_API_KEY en el servidor" },
         { status: 500 }
       );
     }
@@ -34,9 +38,9 @@ Texto del usuario:
 
     return NextResponse.json({ prompts });
   } catch (err: any) {
-    console.error("journal-prompts error", err);
+    console.error("journal-prompts error:", err);
     return NextResponse.json(
-      { error: err?.message || "Error interno" },
+      { error: err?.message || "Error interno en journal-prompts" },
       { status: 500 }
     );
   }
