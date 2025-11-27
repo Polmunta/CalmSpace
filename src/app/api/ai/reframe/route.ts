@@ -1,14 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
+// Fuerza runtime Node.js
+export const runtime = "nodejs";
+
 export async function POST(req: NextRequest) {
   try {
     const { text } = await req.json();
 
     const apiKey = process.env.GOOGLE_GENAI_API_KEY;
     if (!apiKey) {
+      console.error("GOOGLE_GENAI_API_KEY no está definida");
       return NextResponse.json(
-        { error: "Falta GOOGLE_GENAI_API_KEY" },
+        { error: "Falta GOOGLE_GENAI_API_KEY en el servidor" },
         { status: 500 }
       );
     }
@@ -30,9 +34,9 @@ Texto:
 
     return NextResponse.json({ rewritten });
   } catch (err: any) {
-    console.error("reframe error", err);
+    console.error("reframe error:", err);
     return NextResponse.json(
-      { error: err?.message || "Error interno" },
+      { error: err?.message || "Error interno en reframe" },
       { status: 500 }
     );
   }
